@@ -1,0 +1,45 @@
+services:
+    postgres:
+        image: 'postgres:16-alpine'
+        restart: unless-stopped
+        security_opt:
+            - 'no-new-privileges:true'
+        pids_limit: 100
+        read_only: true
+        tmpfs:
+            - /tmp
+            - /var/run/postgresql
+        volumes:
+            - 'postgres:/var/lib/postgresql/data'
+        environment:
+            - TZ=UTC
+            - 'POSTGRES_USER=${SERVICE_USER_POSTGRES:-postgres}'
+            - 'POSTGRES_PASSWORD=${SERVICE_PASSWORD_POSTGRES}'
+            - 'POSTGRES_DB=${DB_POSTGRES:-postgres}'
+    mattermost:
+        depends_on:
+            - postgres
+        image: 'mattermost/mattermost-enterprise-edition:10.0.0'
+        restart: unless-stopped
+        security_opt:
+            - 'no-new-privileges:true'
+        pids_limit: 200
+        read_only: false
+        tmpfs:
+            - /tmp
+        volumes:
+            - './config:/mattermost/config:rw'
+            - './data:/mattermost/data:rw'
+            - './logs:/mattermost/logs:rw'
+            - './plugins:/mattermost/plugins:rw'
+            - './client/plugins:/mattermost/client/plugins:rw'
+            - './bleve-indexes:/mattermost/bleve-indexes:rw'
+        environment:
+            - SERVICE_FQDN_MATTERMOST_8065
+            - TZ=UTC
+            - MM_SQLSETTINGS_DRIVERNAME=postgres
+            - 'MM_SQLSETTINGS_DATASOURCE=postgres://${SERVICE_USER_POSTGRES}:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/${DB_POSTGRES:-postgres}?sslmode=disable&connect_timeout=10'
+            - MM_BLEVESETTINGS_INDEXDIR=/mattermost/bleve-indexes
+            - 'MM_SERVICESETTINGS_SITEURL=${SERVICE_FQDN_MATTERMOST}'
+        expose:
+            - 8065
