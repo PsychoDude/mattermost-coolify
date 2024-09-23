@@ -12,6 +12,6 @@ This is a docker compose file to get mattermost running on coolify based on this
 sudo chown -R 2000:2000 bleve-indexes/ client/ config/ data/ logs plugins
 ```
 
-The disccussion mentions to run this in `/data/coolify/services/SERVICE_ID` but I had to do it in `/data/coolify/applications/SERVICE_ID`. You may need to create the folders in question.
+   The disccussion mentions to run this in `/data/coolify/services/SERVICE_ID` but I had to do it in `/data/coolify/applications/SERVICE_ID`. You may need to create the folders in question.
 
 4. Deploy the service and check if everything is working as expected. (The mattermost container may require a few minutes to start up)
