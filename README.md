@@ -1,6 +1,6 @@
 # Mattermost on Coolify
 
-This is a docker compose file to get mattermost running on coolify based on this disscusion here: https://github.com/coollabsio/coolify/discussions/3087#discussion-7053964
+This is a docker compose file to get mattermost running on coolify based on this discusion here: https://github.com/coollabsio/coolify/discussions/3087#discussion-7053964
 
 ## Intrusctions:
 
