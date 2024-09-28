@@ -41,7 +41,7 @@ services:
             - 'MM_SQLSETTINGS_DATASOURCE=postgres://${SERVICE_USER_POSTGRES}:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/${DB_POSTGRES:-postgres}?sslmode=disable&connect_timeout=10'
             - MM_BLEVESETTINGS_INDEXDIR=/mattermost/bleve-indexes
             - 'MM_SERVICESETTINGS_SITEURL=${SERVICE_FQDN_MATTERMOST}'
-            - MATTERMOST_VERSION
+            - 'MATTERMOST_VERSION=${MATTERMOST_VERSION}'
         expose:
             - 8065
             - 8443
