@@ -19,7 +19,7 @@ services:
     mattermost:
         depends_on:
             - postgres
-        image: 'mattermost/mattermost-enterprise-edition:10.0.0'
+        image: 'mattermost/mattermost-enterprise-edition:${MATTERMOST_VERSION}'
         restart: unless-stopped
         security_opt:
             - 'no-new-privileges:true'
@@ -43,3 +43,4 @@ services:
             - 'MM_SERVICESETTINGS_SITEURL=${SERVICE_FQDN_MATTERMOST}'
         expose:
             - 8065
+            - 8443
